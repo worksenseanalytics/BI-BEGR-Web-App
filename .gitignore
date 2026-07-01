@@ -6,3 +6,4 @@ coverage/
 *.log
 .env*
 !.env.example
+pastikan bisa di tampilkan di github pages.md
