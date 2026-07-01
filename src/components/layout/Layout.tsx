@@ -1,23 +1,23 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { 
-  LayoutDashboard, 
-  Settings, 
-  Database, 
-  Calculator, 
-  Zap, 
-  Loader2, 
-  Menu, 
-  X, 
-  Bell, 
-  Search, 
-  ChevronDown, 
-  FileSpreadsheet, 
-  FileText, 
-  Database as IconDb, 
-  Upload, 
-  FileDown, 
-  Printer, 
-  Eye, 
+import {
+  LayoutDashboard,
+  Settings,
+  Database,
+  Calculator,
+  Zap,
+  Loader2,
+  Menu,
+  X,
+  Bell,
+  Search,
+  ChevronDown,
+  FileSpreadsheet,
+  FileText,
+  Database as IconDb,
+  Upload,
+  FileDown,
+  Printer,
+  Eye,
   EyeOff,
   TrendingUp,
   Building2,
@@ -160,7 +160,7 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
   );
   const [isSyncing, setIsSyncing] = useState<boolean>((window as any).isSyncing || false);
   const [exportDropdownOpen, setExportDropdownOpen] = useState(false);
-  
+
   const [notifications, setNotifications] = useState<TravelNotification[]>(() => {
     const saved = localStorage.getItem('begr_culture_notifications_v1');
     return saved ? JSON.parse(saved) : [
@@ -173,7 +173,7 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
       }
     ];
   });
-  
+
   const [notifDropdownOpen, setNotifDropdownOpen] = useState(false);
   const unreadCount = notifications.filter(n => !n.isRead).length;
 
@@ -183,7 +183,7 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
   const searchResults = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
     if (q.length < 2) return null;
-    return begrRecords.filter(r => 
+    return begrRecords.filter(r =>
       String(r.satkerLengkap || '').toLowerCase().includes(q) ||
       String(r.kelompokBudker || '').toLowerCase().includes(q) ||
       String(r.rubrik || '').toLowerCase().includes(q)
@@ -222,7 +222,7 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
       );
       setIsSyncing(false);
     };
-    
+
     const interval = setInterval(() => {
       setIsSyncing((window as any).isSyncing || false);
     }, 1000);
@@ -246,7 +246,7 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
     };
 
     window.addEventListener('travel_add_notification' as any, handleAddNotif);
-    
+
     (window as any).addTravelNotification = (type: 'tambah' | 'hapus' | 'edit' | 'info', detail: string) => {
       const event = new CustomEvent('travel_add_notification', { detail: { type, detail } });
       window.dispatchEvent(event);
@@ -291,7 +291,7 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
 
   return (
     <div className="h-screen overflow-hidden bg-slate-50/50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans flex flex-row animate-in fade-in duration-350 print:h-auto print:overflow-visible print:bg-white print:text-black">
-      
+
       {/* Print-only header — visible only during print */}
       <div data-print-header className="hidden items-center justify-between px-2 py-3 border-b-2 border-slate-300 mb-4 w-full">
         <div>
@@ -305,7 +305,7 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
       </div>
 
       {/* DESKTOP SIDEBAR — visible on lg and up */}
-      <aside 
+      <aside
         className={cn(
           "hidden lg:flex flex-col justify-between bg-[#233C4B] dark:bg-slate-900 border border-[#1b303d] dark:border-slate-800/80 fixed left-4 top-4 bottom-4 rounded-[24px] transition-all duration-300 overflow-hidden z-30 select-none print:hidden will-change-[width]",
           showLabels ? "w-72 xl:w-80 shadow-md border-white/10" : "w-20 shadow-sm"
@@ -368,8 +368,8 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
                       className={cn(
                         "w-full flex items-center px-3 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer",
                         showLabels ? "text-left justify-start gap-2.5" : "justify-center gap-0",
-                        isActive 
-                          ? "bg-amber-500 text-white shadow-sm" 
+                        isActive
+                          ? "bg-amber-500 text-white shadow-sm"
                           : "text-[#b4ccd8] hover:text-white hover:bg-white/5"
                       )}
                       title={item.label}
@@ -411,11 +411,11 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
         "flex-1 min-w-0 flex flex-col h-screen overflow-hidden transition-all duration-300 print:h-auto print:overflow-visible",
         showLabels ? "lg:ml-[304px] xl:ml-[336px]" : "lg:ml-24"
       )}>
-        
+
         {/* TOP HEADER PANEL — visible on mobile/tablet as navbar, on desktop as toolbar */}
         <div className="w-full px-4 sm:px-6 lg:px-8 pt-4 shrink-0 print:hidden" data-print-hide>
           <header className="bg-[#233C4B] lg:bg-white lg:dark:bg-slate-900 shadow-xs border border-[#1b303d] lg:border-slate-200 lg:dark:border-slate-800/80 transition-all duration-300 px-4 sm:px-6 py-4 flex items-center justify-between gap-4 rounded-[24px]">
-            
+
             {/* Left: Mobile Menu Trigger, Desktop Sidebar Toggle, and Title/Subtitle */}
             <div className="flex items-center gap-3">
               {/* Mobile Menu Trigger */}
@@ -425,7 +425,7 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
               >
                 <Menu className="w-5 h-5" />
               </button>
-              
+
               <div>
                 <h1 className="text-sm sm:text-base md:text-lg lg:text-xl font-extrabold font-sans tracking-tight text-white lg:text-slate-800 lg:dark:text-white leading-tight flex flex-wrap items-center gap-2">
                   <span>{pageTitle}</span>
@@ -438,7 +438,7 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
 
             {/* Desktop Center Quick Search */}
             <div className="hidden lg:flex flex-1 max-w-[150px] lg:max-w-[200px] xl:max-w-xs 2xl:max-w-sm mx-4 transition-all duration-300">
-              <button 
+              <button
                 onClick={() => setSearchOpen(true)}
                 className="w-full flex items-center justify-between bg-white/5 lg:bg-slate-50 lg:dark:bg-slate-800/40 hover:bg-white/10 lg:hover:bg-slate-100/80 lg:dark:hover:bg-slate-800/80 transition-all duration-200 border border-white/5 lg:border-slate-200 lg:dark:border-slate-800/50 rounded-xl px-3.5 py-1.5 text-left cursor-pointer"
               >
@@ -464,36 +464,38 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
                   }}
                   disabled={isSyncing}
                   className={cn(
-                    "flex items-center gap-1.5 px-3 py-1.5 transition-all cursor-pointer rounded-xl font-bold text-[11px] shadow-sm border",
+                    "flex items-center gap-1.5 px-3 py-1.5 transition-all cursor-pointer rounded-xl font-bold text-[11px] shadow-sm border whitespace-nowrap",
                     isSyncing
                       ? "bg-slate-800/50 text-slate-400 border-transparent cursor-not-allowed"
                       : "bg-amber-500 hover:bg-amber-600 border-transparent text-white"
                   )}
                 >
                   {isSyncing ? <Loader2 className="w-4.5 h-4.5 animate-spin" /> : <Zap className="w-4.5 h-4.5" />}
-                  <span className="hidden xl:inline">{isSyncing ? "Sync..." : "Sinkronisasi"}</span>
+                  <span className={cn("whitespace-nowrap hidden", showLabels ? "2xl:inline" : "xl:inline")}>
+                    {isSyncing ? "Sync..." : "Sinkronisasi"}
+                  </span>
                 </button>
               </div>
 
               {/* Print Report Button */}
               <button
                 onClick={() => captureAndPrint("main-content", getPdfFileName())}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-[#1b303d] lg:bg-slate-50 lg:dark:bg-slate-850 hover:bg-white/10 lg:hover:bg-slate-100 lg:dark:hover:bg-slate-800 text-[#b4ccd8] lg:text-slate-600 lg:dark:text-slate-350 hover:text-white lg:hover:text-slate-800 lg:dark:hover:text-white transition-all cursor-pointer border border-white/5 lg:border-slate-200 lg:dark:border-slate-800 rounded-xl font-bold text-[11px] shadow-sm"
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-[#1b303d] lg:bg-slate-50 lg:dark:bg-slate-850 hover:bg-white/10 lg:hover:bg-slate-100 lg:dark:hover:bg-slate-800 text-[#b4ccd8] lg:text-slate-600 lg:dark:text-slate-350 hover:text-white lg:hover:text-slate-800 lg:dark:hover:text-white transition-all cursor-pointer border border-white/5 lg:border-slate-200 lg:dark:border-slate-800 rounded-xl font-bold text-[11px] shadow-sm whitespace-nowrap"
                 title="Cetak laporan halaman aktif dalam mode landscape"
               >
                 <Printer className="w-4.5 h-4.5 text-amber-550 shrink-0" />
-                <span className="hidden xl:inline">Cetak Laporan</span>
+                <span className={cn("whitespace-nowrap hidden", showLabels ? "2xl:inline" : "xl:inline")}>Cetak Laporan</span>
               </button>
 
               {/* Import/Export Dropdown Backup */}
               <div className="relative">
                 <button
                   onClick={() => setExportDropdownOpen(!exportDropdownOpen)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[#1b303d] lg:bg-slate-50 lg:dark:bg-slate-850 hover:bg-white/10 lg:hover:bg-slate-100 lg:dark:hover:bg-slate-800 text-[#b4ccd8] lg:text-slate-600 lg:dark:text-slate-350 hover:text-white lg:hover:text-slate-800 lg:dark:hover:text-white transition-all cursor-pointer border border-white/5 lg:border-slate-200 lg:dark:border-slate-800 rounded-xl font-bold text-[11px] shadow-sm"
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[#1b303d] lg:bg-slate-50 lg:dark:bg-slate-850 hover:bg-white/10 lg:hover:bg-slate-100 lg:dark:hover:bg-slate-800 text-[#b4ccd8] lg:text-slate-600 lg:dark:text-slate-350 hover:text-white lg:hover:text-slate-800 lg:dark:hover:text-white transition-all cursor-pointer border border-white/5 lg:border-slate-200 lg:dark:border-slate-800 rounded-xl font-bold text-[11px] shadow-sm whitespace-nowrap"
                 >
                   <FileDown className="w-4.5 h-4.5 text-amber-550 shrink-0" />
-                  <span className="hidden xl:inline">Cadangan</span>
-                  <ChevronDown className="w-4 h-4 text-slate-450 hidden xl:inline" />
+                  <span className={cn("whitespace-nowrap hidden", showLabels ? "2xl:inline" : "xl:inline")}>Cadangan</span>
+                  <ChevronDown className={cn("w-4 h-4 text-slate-450 hidden shrink-0", showLabels ? "2xl:inline" : "xl:inline")} />
                 </button>
 
                 {exportDropdownOpen && (
@@ -555,7 +557,7 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
 
               {/* Notification Bell */}
               <div className="relative">
-                <button 
+                <button
                   onClick={() => setNotifDropdownOpen(!notifDropdownOpen)}
                   className="p-1.5 rounded-xl hover:bg-white/5 lg:bg-slate-50 lg:dark:bg-slate-850 hover:text-white lg:hover:text-slate-850 text-[#b4ccd8] lg:text-slate-500 lg:dark:text-slate-400 border border-white/5 lg:border-slate-200 lg:dark:border-slate-800 relative transition-transform hover:scale-105 cursor-pointer flex items-center justify-center animate-in"
                 >
@@ -652,18 +654,18 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
                 ))}
               </ul>
             </div>
-             {/* Mobile Print Button */}
-             <button
-               onClick={() => {
-                 setMobileMenuOpen(false);
-                 setTimeout(() => captureAndPrint("main-content", getPdfFileName()), 300);
-               }}
-               className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left font-bold text-xs text-slate-350 hover:bg-white/5 hover:text-white border border-white/5 cursor-pointer transition-colors"
-             >
-               <Printer className="w-4 h-4 text-amber-500" />
-               <span>Cetak Laporan</span>
-             </button>
-           </div>
+            {/* Mobile Print Button */}
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setTimeout(() => captureAndPrint("main-content", getPdfFileName()), 300);
+              }}
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left font-bold text-xs text-slate-350 hover:bg-white/5 hover:text-white border border-white/5 cursor-pointer transition-colors"
+            >
+              <Printer className="w-4 h-4 text-amber-500" />
+              <span>Cetak Laporan</span>
+            </button>
+          </div>
         </div>
       )}
 
@@ -684,7 +686,7 @@ export function Layout({ children, activeTab, setActiveTab }: LayoutProps) {
               />
               <span className="text-[9px] bg-slate-100 dark:bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-mono">ESC</span>
             </div>
-            
+
             <div className="max-h-60 overflow-y-auto p-2">
               {searchResults ? (
                 searchResults.length > 0 ? (
